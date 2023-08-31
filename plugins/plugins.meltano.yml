@@ -1,0 +1,47 @@
+plugins:
+  extractors:
+  - name: tap-pixlet
+    namespace: tap_pixlet
+    pip_url: git+https://github.com/DouweM/tap-pixlet.git
+    settings:
+    - name: path
+    - name: installation_id
+    - name: background
+      kind: boolean
+    - name: magnification
+      kind: integer
+    - name: app_config
+      kind: object
+      value: {}
+
+  loaders:
+  - name: target-tidbyt
+    namespace: target_tidbyt
+    pip_url: git+https://github.com/DouweM/target-tidbyt.git
+    settings:
+    - name: token
+      kind: password
+    - name: device_id
+    config:
+      device_id: $TIDBYT_DEVICE_ID
+      token: $TIDBYT_TOKEN
+
+  - name: target-webp
+    namespace: target_webp
+    pip_url: git+https://github.com/DouweM/target-webp.git
+
+  utilities:
+  - name: airflow
+    variant: apache
+    pip_url: git+https://github.com/meltano/airflow-ext.git@main apache-airflow==2.7.0 psycopg2-binary
+      --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.7.0/constraints-3.11.txt
+    config:
+      core:
+        dags_folder: $MELTANO_PROJECT_ROOT/plugins/airflow/dags
+        plugins_folder: $MELTANO_PROJECT_ROOT/plugins/airflow/plugins
+      logging:
+        base_log_folder: $MELTANO_PROJECT_ROOT/logs
+        dag_processor_manager_log_location: $MELTANO_PROJECT_ROOT/logs/schedule_manager.log
+      extension:
+        airflow_home: $MELTANO_PROJECT_ROOT/plugins/airflow
+        airflow_config: $MELTANO_PROJECT_ROOT/plugins/airflow/airflow.cfg
