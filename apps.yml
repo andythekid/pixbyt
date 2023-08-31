@@ -3,6 +3,10 @@ schedules:
   interval: '0 * * * *' # On the hour
   job: hello-world
 
+- name: nextcloud
+  interval: '* * * * *' # every minute
+  job: nextcloud
+
 # - name: <app>
 #   interval: '*/15 * * * *' # Every 15 minutes
 #   job: <app>

@@ -1,0 +1,14 @@
+jobs:
+- name: nextcloud
+  tasks:
+  - tap-pixlet--nextcloud target-tidbyt
+- name: nextcloud--webp
+  tasks:
+  - tap-pixlet--nextcloud target-webp
+
+plugins:
+  extractors:
+  - name: tap-pixlet--nextcloud
+    inherit_from: tap-pixlet
+    config:
+      path: apps/nextcloud
